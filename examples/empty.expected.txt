@@ -1,8 +1,0 @@
-No modules.
-Adjacency list (module -> dependencies):
-Strongly connected components:
-Cyclic groups:
-None
-Self-loops:
-None
-componentOf = []

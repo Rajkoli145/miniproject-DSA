@@ -4,7 +4,29 @@ A two-person Data Structures and Algorithms mini project for detecting circular 
 
 ## Project status
 
-Planning stage. This README defines the proposed implementation; the features below are not yet implemented. The programming language and build/run commands will be added once the team confirms the course requirements.
+Raj's contribution is implemented in **C++17**: validated graph input, Tarjan SCC detection, cyclic-group and self-loop reporting, tests, and handoff data. Pranav's condensation and dependency-first ordering remain to be integrated. Visualization is optional future work.
+
+## Build, run, and test
+
+Requirements: a C++17 compiler and CMake 3.16 or newer. No external libraries are needed.
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+./build/depgraph < examples/handoff.txt
+ctest --test-dir build --output-on-failure
+```
+
+Without CMake, compile the console program directly:
+
+```bash
+c++ -std=c++17 -Wall -Wextra -Wpedantic -Isrc src/main.cpp src/graph.cpp src/tarjan.cpp src/output.cpp -o /tmp/depgraph
+/tmp/depgraph < examples/handoff.txt
+```
+
+Input format: module count, that many unique names, dependency count, then that many pairs `A B` meaning **A depends on B**. Names are case-sensitive and cannot contain whitespace. Tokens can be separated by spaces or newlines. See [sample input](examples/handoff.txt) and [actual sample output](examples/handoff.expected.txt). Use `0 0` for no modules. With interactive input, end with EOF (Ctrl-D on macOS/Linux). Invalid input produces an error on stderr and exit code 1.
+
+The executable reports adjacency lists, SCCs, cyclic groups, self-loops, and `componentOf`. It currently stops before condensation and ordering. See [Pranav's handoff interface](docs/handoff.md) and [Raj's report and viva notes](docs/raj_contribution.md).
 
 ## Problem statement
 
@@ -21,14 +43,14 @@ DepGraph will accept dependency data, identify groups of mutually dependent modu
 - Implement topological sorting to produce a dependency-first group order.
 - Demonstrate the algorithms on normal and edge-case inputs.
 
-## Planned features
+## Features and remaining work
 
-- Enter module names and directed dependencies.
-- Display the adjacency list and detected SCCs.
-- Highlight cyclic groups and modules that depend on themselves.
-- Collapse each SCC into a single group in the condensed graph.
-- Display a valid dependency-first order of those groups.
-- Optional extension: visualize the original and condensed graphs.
+- [x] Enter module names and directed dependencies.
+- [x] Display the adjacency list and detected SCCs.
+- [x] Identify cyclic groups and modules that depend on themselves.
+- [x] Collapse each SCC into a single group in the condensed graph (Pranav).
+- [x] Display a valid dependency-first order of those groups (Pranav).
+- [ ] Optional extension: visualize the original and condensed graphs.
 
 The initial version will use supplied dependency data. Automatic source-code import analysis is outside the initial scope.
 
@@ -65,7 +87,7 @@ User -> Auth
 User -> Database
 ```
 
-Expected analysis:
+Target analysis after both members' implementations are integrated (the current program's output is in `examples/handoff.expected.txt`):
 
 ```text
 Strongly connected components:
@@ -99,7 +121,7 @@ The order in which Tarjan reports SCCs, and the order of modules within an SCC, 
 
 ## Work distribution
 
-| Responsibility | Raj — Member 1 | Member 2 — add name |
+| Responsibility | Raj — Member 1 | Pranav — Member 2 |
 | --- | --- | --- |
 | Graph representation | Adjacency list, module IDs, input validation | Review shared input/output contract |
 | Main algorithm | Tarjan’s SCC detection and cycle classification | Condensation and Kahn’s topological sorting |
@@ -109,13 +131,13 @@ The order in which Tarjan reports SCCs, and the order of modules within an SCC, 
 
 Both members will integrate the program, review each other’s changes, and prepare the final report and demonstration. One member should own the initial entry-point file to avoid overlapping edits.
 
-## Suggested repository organization
+## Repository organization
 
-Use source-file extensions appropriate to the chosen language.
+The implementation uses C++17 headers and source files.
 
 | Location | Contents |
 | --- | --- |
-| `src/` | Main program, graph representation, Tarjan, condensation, ordering |
+| `src/` | Main program, graph representation, Tarjan, output; condensation and ordering pending |
 | `examples/` | Small input files and their expected analyses |
 | `tests/` | Algorithm and integration checks |
 | `docs/` | Algorithm explanations and project report |
@@ -174,11 +196,14 @@ The core analysis takes O(V + E) time and O(V + E) total storage, including the 
 
 ## Completion checklist
 
-- [ ] Confirm language and course requirements.
-- [ ] Set up the repository and shared function interfaces.
-- [ ] Implement and check Tarjan’s algorithm.
-- [ ] Implement condensation and dependency-first ordering.
-- [ ] Integrate input handling and output.
-- [ ] Run the verification cases.
-- [ ] Add exact build/run commands for the implemented program.
-- [ ] Prepare the report and viva demonstration.
+- [x] Confirm C++17 with Raj.
+- [x] Set up the repository and shared function interfaces.
+- [x] Implement and check Tarjan's algorithm.
+- [x] Implement condensation and dependency-first ordering.
+- [x] Integrate input handling and SCC output.
+- [x] Run SCC and input verification cases, plus an exhaustive reachability comparison.
+- [x] Run combined condensation and ordering integration cases.
+- [x] Add exact build/run commands for the implemented program.
+- [x] Prepare Raj's report explanation and viva trace.
+- [x] Prepare Pranav's report explanation and viva trace.
+- [ ] Prepare the combined report and demo after final integration.

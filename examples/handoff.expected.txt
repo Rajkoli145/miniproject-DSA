@@ -1,0 +1,14 @@
+Adjacency list (module -> dependencies):
+0 App -> {Auth}
+1 Auth -> {User}
+2 User -> {Auth, Database}
+3 Database -> {}
+Strongly connected components:
+0: {Database} (not cyclic)
+1: {User, Auth} (cyclic)
+2: {App} (not cyclic)
+Cyclic groups:
+{User, Auth}
+Self-loops:
+None
+componentOf = [2, 1, 1, 0]

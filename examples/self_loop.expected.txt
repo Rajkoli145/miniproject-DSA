@@ -1,0 +1,9 @@
+Adjacency list (module -> dependencies):
+0 A -> {A}
+Strongly connected components:
+0: {A} (cyclic)
+Cyclic groups:
+{A}
+Self-loops:
+A
+componentOf = [0]

@@ -48,8 +48,8 @@ DepGraph will accept dependency data, identify groups of mutually dependent modu
 - [x] Enter module names and directed dependencies.
 - [x] Display the adjacency list and detected SCCs.
 - [x] Identify cyclic groups and modules that depend on themselves.
-- [ ] Collapse each SCC into a single group in the condensed graph (Pranav).
-- [ ] Display a valid dependency-first order of those groups (Pranav).
+- [x] Collapse each SCC into a single group in the condensed graph (Pranav).
+- [x] Display a valid dependency-first order of those groups (Pranav).
 - [ ] Optional extension: visualize the original and condensed graphs.
 
 The initial version will use supplied dependency data. Automatic source-code import analysis is outside the initial scope.
@@ -199,10 +199,11 @@ The core analysis takes O(V + E) time and O(V + E) total storage, including the 
 - [x] Confirm C++17 with Raj.
 - [x] Set up the repository and shared function interfaces.
 - [x] Implement and check Tarjan's algorithm.
-- [ ] Implement condensation and dependency-first ordering.
+- [x] Implement condensation and dependency-first ordering.
 - [x] Integrate input handling and SCC output.
 - [x] Run SCC and input verification cases, plus an exhaustive reachability comparison.
-- [ ] Run combined condensation and ordering integration cases.
+- [x] Run combined condensation and ordering integration cases.
 - [x] Add exact build/run commands for the implemented program.
 - [x] Prepare Raj's report explanation and viva trace.
-- [ ] Prepare the combined report and demo after Pranav's integration.
+- [x] Prepare Pranav's report explanation and viva trace.
+- [ ] Prepare the combined report and demo after final integration.
